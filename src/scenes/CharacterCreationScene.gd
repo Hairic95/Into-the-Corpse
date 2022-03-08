@@ -6,7 +6,7 @@ var attack = 1
 var protection = 1
 var health = 1
 
-var remaining_points = 3
+var remaining_points = 4
 
 func _ready():
 	set_attack()

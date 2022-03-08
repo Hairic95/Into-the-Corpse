@@ -36,13 +36,14 @@ func _ready():
 	EventBus.connect("remove_combatant_ui", self, "remove_combatant_ui")
 	
 	randomize()
-	
+
+func start_battle(enemy_data):
 	# Create the enemy position references, delete the scene after retrieving the data
 	# (this function should be called externally)
-	var new_battle_data_scene = load("res://src/battle_data/battle_test_002.tscn").instance()
-	add_child(new_battle_data_scene)
-	var enemy_data = new_battle_data_scene.get_battle_data()
-	new_battle_data_scene.queue_free()
+	# var new_battle_data_scene = load("res://src/battle_data/battle_test_002.tscn").instance()
+	# add_child(new_battle_data_scene)
+	# var enemy_data = new_battle_data_scene.get_battle_data()
+	# new_battle_data_scene.queue_free()
 	
 	var i = 1
 	for enemy in enemy_data:

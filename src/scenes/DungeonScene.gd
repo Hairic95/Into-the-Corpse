@@ -1,31 +1,29 @@
 extends Node2D
 
+signal change_scene(new_scene_key, params)
 
-func _ready():
-	DungeonHandler.generate_dungeon("")
+func set_dungeon(dungeon_type):
+	DungeonHandler.generate_dungeon(dungeon_type)
 	
-	var x = 1
-	for choice in DungeonHandler.room_choices:
-		
-		var y = 1
-		for room in choice:
-			
-			var new_sprite = Sprite.new()
-			match (room.key):
+	
+	show_options()
+
+func show_options():
+	$CanvasLayer/Label.text = str("Rooms: ", DungeonHandler.current_room_choice + 1, "/", DungeonHandler.room_choices.size())
+	
+	if DungeonHandler.current_room_choice < DungeonHandler.room_choices.size():
+		for room in DungeonHandler.room_choices[DungeonHandler.current_room_choice]:
+			var room_button = TextureButton.new()
+			match(room.key):
 				Constants.RoomKey_Battle:
-					new_sprite.texture = load("res://assets/ui/dungeon/battle_room.png")
+					room_button.texture_normal = preload("res://assets/ui/dungeon/battle_room.png")
+					room_button.connect("pressed", self, "start_battle", [room.battle_data])
 				Constants.RoomKey_Respite:
-					new_sprite.texture = load("res://assets/ui/dungeon/respite_room.png")
+					room_button.texture_normal = preload("res://assets/ui/dungeon/respite_room.png")
 				Constants.RoomKey_Treasure:
-					new_sprite.texture = load("res://assets/ui/dungeon/treasure_room.png")
-			
-			new_sprite.scale = Vector2(.2, .2)
-			new_sprite.global_position = Vector2(x * 80, y * 80)
-			
-			add_child(new_sprite)
-			
-			y += 1
-		
-		x += 1
-	
+					room_button.texture_normal = preload("res://assets/ui/dungeon/treasure_room.png")
+			$CanvasLayer/Choices.add_child(room_button)
+
+func start_battle(battle_data):
+	emit_signal("change_scene", Constants.SceneKey_Battle, { "battle_data": battle_data })
 

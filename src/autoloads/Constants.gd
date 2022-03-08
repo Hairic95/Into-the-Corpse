@@ -6,6 +6,7 @@ const SceneKey_MainMenu = "main_menu"
 const SceneKey_Cutscene = "cutscene"
 const SceneKey_CharacterCreation = "character_creation"
 const SceneKey_Lobby = "lobby"
+const SceneKey_Dungeon = "dungeon"
 const SceneKey_Battle = "battle"
 
 # Room Keys
@@ -14,6 +15,12 @@ const RoomKey_Battle = "battle"
 const RoomKey_Treasure = "treasure"
 const RoomKey_Respite = "respite"
 const RoomKey_Boss = "boss"
+
+# Dungeon Type
+
+const DungeonType_Ribcage = "ribcage"
+const DungeonType_Blood = "blood"
+const DungeonType_Stomach = "stomach"
 
 # Player types and ids
 
