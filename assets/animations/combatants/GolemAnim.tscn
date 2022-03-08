@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/textures/battle/enemies/golem.png" type="Texture" id=2]
+[ext_resource path="res://assets/animations/combatants/Anim.gd" type="Script" id=3]
+
+[sub_resource type="Animation" id=1]
+resource_name = "Idle"
+length = 4.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2, 3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.37, 0.37 ), Vector2( 0.38, 0.36 ), Vector2( 0.37, 0.37 ), Vector2( 0.36, 0.38 ) ]
+}
+
+[node name="Player" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 0.36, 0.38 )
+texture = ExtResource( 2 )
+offset = Vector2( 0, -255 )
+
+[node name="TargetPosition" type="Position2D" parent="."]
+position = Vector2( 4, -32 )
+
+[node name="Anim" type="AnimationPlayer" parent="."]
+anims/Idle = SubResource( 1 )

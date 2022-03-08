@@ -1,0 +1,121 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://addons/AshKChunkyJuice/OverlayMover.gd" type="Script" id=1]
+[ext_resource path="res://addons/AshKChunkyJuice/WHITE_Circle.png" type="Texture" id=2]
+[ext_resource path="res://addons/AshKChunkyJuice/Wrangler.tres" type="Material" id=3]
+
+[sub_resource type="CanvasItemMaterial" id=1]
+blend_mode = 1
+
+[sub_resource type="OpenSimplexNoise" id=2]
+seed = 3
+octaves = 6
+period = 2.7
+persistence = 0.807
+lacunarity = 3.06
+
+[sub_resource type="NoiseTexture" id=3]
+flags = 2
+seamless = true
+noise = SubResource( 2 )
+
+[sub_resource type="CanvasItemMaterial" id=4]
+blend_mode = 1
+
+[sub_resource type="OpenSimplexNoise" id=5]
+seed = 2
+octaves = 6
+period = 2.5
+persistence = 0.736
+lacunarity = 3.12
+
+[sub_resource type="NoiseTexture" id=6]
+flags = 2
+seamless = true
+noise = SubResource( 5 )
+
+[sub_resource type="CanvasItemMaterial" id=7]
+blend_mode = 1
+
+[sub_resource type="OpenSimplexNoise" id=8]
+seed = 1
+octaves = 6
+period = 2.4
+persistence = 0.846
+lacunarity = 2.9
+
+[sub_resource type="NoiseTexture" id=9]
+flags = 2
+seamless = true
+noise = SubResource( 8 )
+
+[sub_resource type="CanvasItemMaterial" id=10]
+blend_mode = 2
+
+[node name="ColorPaletteSquasher" type="TextureRect"]
+material = ExtResource( 3 )
+margin_left = -120.266
+margin_top = -202.783
+margin_right = 1362.73
+margin_bottom = 833.217
+mouse_filter = 2
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 2
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRectYellow" type="TextureRect" parent="."]
+self_modulate = Color( 1, 0.498039, 0, 0.713726 )
+show_behind_parent = true
+material = SubResource( 1 )
+margin_right = 1483.0
+margin_bottom = 1036.0
+mouse_filter = 2
+texture = SubResource( 3 )
+expand = true
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRectMagenta" type="TextureRect" parent="."]
+self_modulate = Color( 0.498039, 0, 1, 0.662745 )
+show_behind_parent = true
+material = SubResource( 4 )
+margin_right = 1483.0
+margin_bottom = 1036.0
+mouse_filter = 2
+texture = SubResource( 6 )
+expand = true
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRectCyan" type="TextureRect" parent="."]
+self_modulate = Color( 0, 1, 0.494118, 0.698039 )
+show_behind_parent = true
+material = SubResource( 7 )
+margin_right = 1483.0
+margin_bottom = 1036.0
+mouse_filter = 2
+texture = SubResource( 9 )
+expand = true
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+self_modulate = Color( 1, 1, 1, 0.701961 )
+show_behind_parent = true
+material = SubResource( 10 )
+margin_right = 1483.0
+margin_bottom = 1036.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}

@@ -1,0 +1,81 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://src/entities/Combatant.gd" type="Script" id=1]
+[ext_resource path="res://assets/ui/current_combatant_hint.png" type="Texture" id=2]
+
+[sub_resource type="Animation" id=1]
+resource_name = "Bop"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Animations:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.1, 1.05 ), Vector2( 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Animations:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "Death"
+length = 1.8
+tracks/0/type = "value"
+tracks/0/path = NodePath("Animations:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.9, 1.7 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Animations:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+
+[node name="Combatant" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Actions" type="Node" parent="."]
+
+[node name="Status" type="Node" parent="."]
+
+[node name="Buffs" type="Node" parent="."]
+
+[node name="Animations" type="Node2D" parent="."]
+
+[node name="CurrentHint" type="Sprite" parent="."]
+visible = false
+position = Vector2( 0, 1 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 2 )
+
+[node name="Anim" type="AnimationPlayer" parent="."]
+anims/Bop = SubResource( 1 )
+anims/Death = SubResource( 2 )
