@@ -23,6 +23,16 @@ func _load_scene(new_scene_key, scene_parameters = null):
 		var new_scene = scenes[new_scene_key].instance()
 		new_scene.connect("change_scene", self, "_load_scene")
 		$CurrentScene.add_child(new_scene)
+		
+		match(new_scene_key):
+			Constants.SceneKey_Dungeon:
+				if scene_parameters.generate:
+					new_scene.set_dungeon(scene_parameters.type)
+				else:
+					new_scene.show_options()
+			Constants.SceneKey_Battle:
+				new_scene.start_battle(scene_parameters.battle_data)
+		
 		fade_in()
 		yield(get_tree().create_timer(1.25), "timeout")
 		
@@ -30,10 +40,6 @@ func _load_scene(new_scene_key, scene_parameters = null):
 			match(new_scene_key):
 				Constants.SceneKey_Cutscene:
 					new_scene.start_cutscene()
-				Constants.SceneKey_Dungeon:
-					new_scene.set_dungeon(scene_parameters.type)
-				Constants.SceneKey_Battle:
-					new_scene.start_battle(scene_parameters.battle_data)
 
 func fade_out():
 	$CanvasLayer/ColorRect/Tween.interpolate_property($CanvasLayer/ColorRect, "modulate",

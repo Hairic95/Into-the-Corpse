@@ -181,7 +181,7 @@ func start_turn():
 	
 	play_turn_count_tween()
 	
-	yield(get_tree().create_timer(1.5), "timeout")
+	yield(get_tree().create_timer(.5), "timeout")
 	
 	reset_text()
 	
@@ -281,7 +281,7 @@ func show_action_targets(acting_combatant, action):
 		# if its a enemy targetting action, show the targets on the enemies
 		Constants.ActionTarget_EnemySingle:
 			for combatant in $Combatants/Ysort.get_children():
-				if combatant.player_id != acting_combatant.player_id:
+				if combatant.player_id != acting_combatant.player_id && !combatant.is_ko():
 					var new_target = enemy_target_button_reference.instance()
 					new_target.connect("pressed", self, "execute_action", [acting_combatant, action, [combatant]])
 					new_target.connect("mouse_entered", self, "focus_target_hover", [new_target])
@@ -290,7 +290,7 @@ func show_action_targets(acting_combatant, action):
 		# if its a ally targetting action, show the targets on the players combatants
 		Constants.ActionTarget_AllySingle:
 			for combatant in $Combatants/Ysort.get_children():
-				if combatant.player_id == acting_combatant.player_id:
+				if combatant.player_id == acting_combatant.player_id && !combatant.is_ko():
 					var new_target = ally_target_button_reference.instance()
 					new_target.connect("pressed", self, "execute_action", [acting_combatant, action, [combatant]])
 					new_target.connect("mouse_entered", self, "focus_target_hover", [new_target])
@@ -300,7 +300,7 @@ func show_action_targets(acting_combatant, action):
 			var targets_positions = []
 			var targets = []
 			for combatant in $Combatants/Ysort.get_children():
-				if combatant.player_id != acting_combatant.player_id:
+				if combatant.player_id != acting_combatant.player_id && !combatant.is_ko():
 					targets_positions.append(combatant.global_position)
 					targets.append(combatant)
 			var new_multi_target_button = multi_enemy_target_button_reference.instance()
@@ -311,7 +311,7 @@ func show_action_targets(acting_combatant, action):
 			var targets_positions = []
 			var targets = []
 			for combatant in $Combatants/Ysort.get_children():
-				if combatant.player_id == acting_combatant.player_id:
+				if combatant.player_id == acting_combatant.player_id && !combatant.is_ko():
 					targets_positions.append(combatant.global_position)
 					targets.append(combatant)
 			var new_multi_target_button = multi_ally_target_button_reference.instance()
@@ -380,9 +380,18 @@ func is_battle_over():
 	if player_team_is_defeated && enemy_team_is_defeated:
 		show_text("That's a tie!")
 	elif enemy_team_is_defeated:
-		show_text("You won, enjoy this screen until you close it!")
+		show_text("You won")
+		yield(get_tree().create_timer(2.0), "timeout")
+		DungeonHandler.current_room_choice += 1
+		if DungeonHandler.current_room_choice >= DungeonHandler.room_choices.size():
+			emit_signal("change_scene", Constants.SceneKey_Lobby)
+		else:
+			emit_signal("change_scene", Constants.SceneKey_Dungeon, {"type": DungeonHandler.current_dungeon_type, "generate": false})
 	elif player_team_is_defeated:
 		show_text("You lost lmao")
+		
+		yield(get_tree().create_timer(2.0), "timeout")
+		emit_signal("change_scene", Constants.SceneKey_MainMenu)
 	
 	return player_team_is_defeated || enemy_team_is_defeated
 

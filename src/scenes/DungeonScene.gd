@@ -5,6 +5,7 @@ signal change_scene(new_scene_key, params)
 func set_dungeon(dungeon_type):
 	DungeonHandler.generate_dungeon(dungeon_type)
 	
+	$CanvasLayer/Label.text = str("Rooms: ", DungeonHandler.current_room_choice + 1, "/", DungeonHandler.room_choices.size())
 	
 	show_options()
 
